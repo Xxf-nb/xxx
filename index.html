@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="js/echarts.js"></script>
+    <script src="js/vintage.js"></script>
+  </head>
+  <body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 600px;height:400px;position: relative;float: left;top: 50px;left: 200px;"></div>
+    <div id="main1" style="width: 600px;height:400px;top: 50px;left: 900px;"></div>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'),'vintage');
+      var myChart1 = echarts.init(document.getElementById('main1'),'vintage');
+      // 指定图表的配置项和数据
+      option = {
+        title: {
+    text: '东中西部耕地面积分布'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      crossStyle: {
+        color: '#999'
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  legend: {
+    data: ['Precipitation', 'Temperature']
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ['东部地区', '中部地区', '西部地区'],
+      axisPointer: {
+        type: 'shadow'
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '万公顷',
+      min: 0,
+      max: 6000,
+      interval: 1000,
+      axisLabel: {
+        formatter: '{value} ml'
+      }
+    },
+    {
+      type: 'value',
+      name: '万亩',
+      min: 0,
+      max: 100000,
+      interval: 20000,
+      axisLabel: {
+        formatter: '{value} °C'
+      }
+    }
+  ],
+  series: [
+    {
+      name: '万公顷',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + ' ml';
+        }
+      },
+      data: [
+        3695.59, 5611.89, 33696.45
+      ]
+    },
+    {
+      name: '万亩',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + ' °C';
+        }
+      },
+      data: [55433.83, 84278.33, 55446.68]
+    }
+  ]
+};
+option1 = {
+  title: {
+    text: '东中西部耕地灌溉面积'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {},
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    boundaryGap: [0, 0.01],
+    name: '%' 
+  },
+  yAxis: {
+    type: 'category',
+    data: ['东部地区', '中部地区', '西部地区'],
+    name: '地区' 
+  },
+  series: [
+    {
+      name: '有灌溉',
+      type: 'bar',
+      data: [57.7,32.9,32.4]
+    },
+    {
+      name: '无灌溉',
+      type: 'bar',
+      data: [42.3,67.1,67.6]
+    }
+  ]
+};
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+      myChart1.setOption(option1);
+    </script>
+  </body>
+</html>
